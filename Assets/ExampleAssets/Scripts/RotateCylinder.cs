@@ -6,7 +6,7 @@ public class RotateCylinder : MonoBehaviour
 {
     private GameObject cylinder;
     
-        private float degreesPerSecond = 90f;
+        private static float degreesPerSecond = 90f;
     
         // Start is called before the first frame update
         void Start()
@@ -21,5 +21,17 @@ public class RotateCylinder : MonoBehaviour
             //2.Param: Eine der drei Achsen um die rotiert werden soll
             //3.Param: Gradanzahl um die rotiert werden soll, durch Einberechnung von dtime 
             cylinder.transform.RotateAround(transform.position, transform.forward, Time.deltaTime * degreesPerSecond);
+        }
+
+        public static void incrementSpeed()
+        {
+            degreesPerSecond++;
+            Debug.Log("Incremented to: " + degreesPerSecond);
+        }
+
+        public static void decrementSpeed()
+        {
+            degreesPerSecond--;
+            Debug.Log("Decremented to: " + degreesPerSecond);
         }
 }

@@ -200,12 +200,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.29
+      value: 1.11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.15
+      value: 3.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
@@ -215,7 +215,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
@@ -230,12 +230,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
         type: 3}
@@ -366,6 +366,7 @@ GameObject:
   - component: {fileID: 599916904}
   - component: {fileID: 599916903}
   - component: {fileID: 599916902}
+  - component: {fileID: 599916906}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -450,6 +451,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &599916906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599916901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473afcafee3e18d43a0193d07039d436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +702,7 @@ GameObject:
   - component: {fileID: 1355870100}
   - component: {fileID: 1355870099}
   m_Layer: 0
-  m_Name: Cylinder (1)
+  m_Name: pottery_wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -765,16 +778,22 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355870098}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.27, y: 1.73, z: 8.98}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.0004, y: 0.0011, z: -0.0103}
+  m_LocalScale: {x: 0.043475397, y: 0.000344745, z: 0.04238594}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1513286594}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1513286592 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 80a3296f0c6e6c84eb8c699153604ae9,
+    type: 3}
+  m_PrefabInstance: {fileID: 318288939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1513286594 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 80a3296f0c6e6c84eb8c699153604ae9,
     type: 3}
   m_PrefabInstance: {fileID: 318288939}
   m_PrefabAsset: {fileID: 0}
