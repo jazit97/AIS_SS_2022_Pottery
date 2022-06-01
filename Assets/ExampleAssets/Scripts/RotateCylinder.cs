@@ -12,6 +12,8 @@ public class RotateCylinder : MonoBehaviour
         void Start()
         {
             cylinder = GameObject.Find("Cylinder");
+            InputRegistry.On_AKey_Pressed += decrementSpeed;
+            InputRegistry.On_DKey_Pressed += incrementSpeed;
         }
     
         // Update is called once per frame
