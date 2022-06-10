@@ -80,6 +80,26 @@ MonoBehaviour:
   company: Unity
   priority: 0
   required: 0
+--- !u!114 &-2777049905883639267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c465bd23c9c4fb442ae89117552a5f3f, type: 3}
+  m_Name: HandTrackingFeature Standalone
+  m_EditorClassIdentifier: 
+  m_enabled: 0
+  nameUi: Ultraleap Hand Tracking
+  version: 1.0.0
+  featureIdInternal: com.ultraleap.tracking.openxr.feature.handtracking
+  openxrExtensionStrings: XR_EXT_hand_tracking
+  company: Ultraleap
+  priority: 0
+  required: 0
 --- !u!114 &-2756459071882876693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +211,7 @@ MonoBehaviour:
   features:
   - {fileID: -6856639162907719711}
   - {fileID: -1266404054985097278}
+  - {fileID: -2777049905883639267}
   - {fileID: 3051425526964773447}
   - {fileID: -7563154613007565441}
   - {fileID: 511848032286306552}

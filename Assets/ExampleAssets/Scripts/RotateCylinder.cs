@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,5 +36,11 @@ public class RotateCylinder : MonoBehaviour
         {
             degreesPerSecond--;
             Debug.Log("Decremented to: " + degreesPerSecond);
+        }
+
+        private void OnDestroy()
+        {
+            InputRegistry.On_AKey_Pressed -= decrementSpeed;
+            InputRegistry.On_DKey_Pressed -= incrementSpeed;
         }
 }
