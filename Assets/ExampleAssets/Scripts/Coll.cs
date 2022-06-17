@@ -9,18 +9,20 @@ public class Coll : MonoBehaviour
 
     private BoxCollider boxCollider;
 
+    private const float force = 0.0002f;
+
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider>();
         //index = transform.GetSiblingIndex();
     }
 
-    public void HitCollider(float force)
+    public void HitCollider(float impactForce)
     {
-        if (boxCollider.size.x - force > 0.0f || boxCollider.size.y - force > 0.0f)
+        if (boxCollider.size.x - impactForce > 0.0f || boxCollider.size.y - impactForce > 0.0f)
         {
-            boxCollider.size = new Vector3(boxCollider.size.x - force,
-            boxCollider.size.y - force,
+            boxCollider.size = new Vector3(boxCollider.size.x - impactForce,
+            boxCollider.size.y - impactForce,
             boxCollider.size.z);
             Debug.Log("Collider wird verändert");
         }
@@ -29,6 +31,16 @@ public class Coll : MonoBehaviour
             Destroy(this);
             Debug.Log("Destroy");
         }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        HitCollider(force);
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        HitCollider(force);
     }
 
     // Start is called before the first frame update
