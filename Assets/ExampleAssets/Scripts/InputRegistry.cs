@@ -8,6 +8,8 @@ public class InputRegistry : MonoBehaviour
     // Start is called before the first frame update
     public static event Action On_AKey_Pressed;
     public static event Action On_DKey_Pressed;
+
+    public static event Action On_EKey_Pressed;
     /*
      * Events:
      * 1.Definiert ein event wie folgt public static event Action myEvent;
@@ -34,6 +36,11 @@ public class InputRegistry : MonoBehaviour
         {
             On_DKey_Pressed();
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            On_EKey_Pressed();
+        }
+        
     }
 
     

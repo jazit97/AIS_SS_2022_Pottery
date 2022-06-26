@@ -21,26 +21,24 @@ public class Coll : MonoBehaviour
     {
         if (boxCollider.size.x - impactForce > 0.0f || boxCollider.size.y - impactForce > 0.0f)
         {
-            boxCollider.size = new Vector3(boxCollider.size.x - impactForce,
-            boxCollider.size.y - impactForce,
-            boxCollider.size.z);
+            boxCollider.size = new Vector3(boxCollider.size.x - impactForce, boxCollider.size.y - impactForce, boxCollider.size.z);
             Debug.Log("Collider wird verändert");
         }
         else
         {
-            Destroy(this);
-            Debug.Log("Destroy");
+            //Destroy(this);
+            Debug.Log("Why the fuck would I Destroy");
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        HitCollider(force);
+        //HitCollider(force);
     }
 
     private void OnCollisionStay(Collision other)
     {
-        HitCollider(force);
+        //HitCollider(force);
     }
 
     // Start is called before the first frame update

@@ -10,7 +10,7 @@ public class MeshDeform : MonoBehaviour
     [SerializeField] private float force;
     [SerializeField] private CylinderDeform cylinder;
 
-    private Rigidbody deformerRB;
+    public Rigidbody deformerRB;
 
     private Vector3 movementVector;
 
@@ -18,6 +18,7 @@ public class MeshDeform : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(deformerRB == null)
         deformerRB = GetComponent<Rigidbody>();
     }
 
@@ -38,6 +39,7 @@ public class MeshDeform : MonoBehaviour
         if (isMoving)
         {
             deformerRB.position += movementVector;
+            
         }
     }
 
