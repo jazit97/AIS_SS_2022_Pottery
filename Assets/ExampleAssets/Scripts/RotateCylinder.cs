@@ -23,8 +23,9 @@ public class RotateCylinder : MonoBehaviour
             //1.Param: Punkt um den rotiert werden soll, bei der Rotation um sich selbst ist das die position des objekts selbst
             //2.Param: Eine der drei Achsen um die rotiert werden soll
             //3.Param: Gradanzahl um die rotiert werden soll, durch Einberechnung von dtime 
-            cylinder.transform.RotateAround(transform.position, transform.forward, Time.deltaTime * degreesPerSecond);
-        }
+            //cylinder.transform.RotateAround(transform.position, transform.forward, Time.deltaTime * degreesPerSecond);
+            cylinder.transform.Rotate(Vector3.up * Time.deltaTime*degreesPerSecond);
+    }
 
         public static void incrementSpeed()
         {
