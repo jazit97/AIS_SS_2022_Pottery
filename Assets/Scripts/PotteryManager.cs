@@ -54,11 +54,17 @@ namespace Leap.Unity
         
         void Update()
         {
-            reactToGesture();
+            //reactToGesture();
+            
             if (Hands.Left.IsPinching())
             {
-                Debug.Log("Pinch detected");
+                
+                Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
+                Vector3 pinchPosition = Hands.Left.GetPinchPosition();
+                Debug.Log("Pinch detected ==== position = " + pinchPosition);
+                spline.PullAtPosition(pinchPosition, effectStrength, 1, currentDeformFunction, Spline.UseAbsolutegeHeight);
             }
+            
             //update mesh with new spline
             List<Vector3> updatedSpline = spline.getSplineList();
             latheController.updateMesh(updatedSpline);

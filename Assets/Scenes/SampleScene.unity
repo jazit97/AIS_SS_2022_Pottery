@@ -4631,6 +4631,10 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11422472, guid: 23f2cce114628a448bfeaae171b4c0c0, type: 3}
+      propertyPath: handModelPalmWidth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 13620250, guid: 23f2cce114628a448bfeaae171b4c0c0, type: 3}
       propertyPath: m_Height
       value: 0.034330003
@@ -6339,12 +6343,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689b0b9f690a33f4fb2bf4bf8e73bff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClayResolution: 20
-  ClayHeight: 14
-  ClayRadius: 6
+  ClayResolution: 10
+  ClayHeight: 0.5
+  ClayRadius: 0.2
   ClayVariance: 0
   effectStrength: 0.04
-  affectedArea: 0.25
+  affectedArea: 0.04
   latheController: {fileID: 1692516741}
   positionOfTip: {x: 0, y: 0, z: 0}
   handController: {fileID: 1918454054}
@@ -6362,7 +6366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: e2d10f4771a565247b5e1225ed89c2b5, type: 2}
   sections: 96
-  thickness: 0.43
+  thickness: 0.138
 --- !u!4 &1692516742
 Transform:
   m_ObjectHideFlags: 0
@@ -6372,7 +6376,7 @@ Transform:
   m_GameObject: {fileID: 1692516737}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.025963962, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 43918415}
   m_RootOrder: 0
