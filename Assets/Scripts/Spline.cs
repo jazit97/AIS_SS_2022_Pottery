@@ -317,20 +317,23 @@ public class Spline
     /// <param name="deformFunc"></param>
     private void deformAtPosition(bool pull, Vector3 position, float strength, float effectStrength, float affectedArea, Func<float, float> deformFunc, bool absoluteHeight)
     {
+        String deformSummary = "";
         // check deform strenght against min & max
         float strengthOfDeformation = Mathf.Min(0.01f, Mathf.Abs(strength));
         strengthOfDeformation = Mathf.Max(0.0001f, strengthOfDeformation);
-
         // calculate number of affected vertices,first and last affected vertex
         float affectedVertices;
         int startVertex, endVertex;
         if (absoluteHeight) {
             startVertex = getCorrespondingVertex(position.y - affectedArea / 2f);
             endVertex = getCorrespondingVertex(position.y + affectedArea / 2f);
+            Debug.Log($"Position: {position.y} Affected Area/2 : {affectedArea/2f}");
+            Debug.Log($"Startvertex: {startVertex}/ EndVertex: {endVertex}");
             affectedVertices = endVertex - startVertex;
         }
         else { 
             affectedVertices = (int)Mathf.Floor(spline.Length * affectedArea);
+            Debug.Log("Affected Vertices: " + affectedVertices);
             if (affectedVertices % 2 == 0)
                 affectedVertices += 1;
             startVertex = getCorrespondingVertex(position.y) - ((int)affectedVertices - 1) / 2;
@@ -339,11 +342,14 @@ public class Spline
 
         float[] deformFactors = new float[(int)affectedVertices];
         int tmp = (int)Mathf.Floor(affectedVertices / 2);
+        Debug.Log("Temp = " + tmp);
         for (int i = 0; i < (int)Mathf.Floor(affectedVertices / 2); i++)
         {
             //start at center
             deformFactors[tmp + i] = deformFunc(scale(i, 0, (affectedVertices+2)/4f, 0, 1)) * effectStrength;
             deformFactors[tmp - i] = deformFactors[tmp + i];
+            deformSummary += $"Deformprofile at {tmp +i} : {deformFactors[tmp + i]}";
+            deformSummary += $"Deformprofile at {tmp -i} : {deformFactors[tmp - i]}";
         }
 
         // apply deformation to spline
@@ -371,10 +377,11 @@ public class Spline
 
                 spline[i].z += sign*spline[i].z * strengthOfDeformation * deformFactors[i - startVertex] * 3f;
             }
-
             spline[i].z = Mathf.Min(spline[i].z, maxRadius);
             spline[i].z = Mathf.Max(spline[i].z, minRadius);
+            
         }
+        Debug.Log("Summary: " + deformSummary);
     }
 
     /// <summary>
