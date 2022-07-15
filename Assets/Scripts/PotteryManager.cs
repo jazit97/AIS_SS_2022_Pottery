@@ -47,22 +47,7 @@ namespace Leap.Unity
         #region Unity_Lifecycle
          void Start()
          {
-             leftHandFingers = new Finger[]
-             {
-                 Hands.Left.Fingers[0],
-                 Hands.Left.Fingers[1],
-                 Hands.Left.Fingers[2],
-                 Hands.Left.Fingers[3],
-                 Hands.Left.Fingers[4]
-             };
-             rightHandFingers = new Finger[]
-             {
-                 Hands.Right.Fingers[0],
-                 Hands.Right.Fingers[1],
-                 Hands.Right.Fingers[2],
-                 Hands.Right.Fingers[3],
-                 Hands.Right.Fingers[4]
-             };
+             
             InputRegistry.On_EKey_Pressed += deform;
             //leapController = handController.GetLeapController();
             spline = new Spline(ClayRadius, ClayHeight, ClayResolution, ClayVariance);
@@ -72,6 +57,22 @@ namespace Leap.Unity
         
         void Update()
         {
+            leftHandFingers = new Finger[]
+            {
+                Hands.Left.Fingers[0],
+                Hands.Left.Fingers[1],
+                Hands.Left.Fingers[2],
+                Hands.Left.Fingers[3],
+                Hands.Left.Fingers[4]
+            };
+            rightHandFingers = new Finger[]
+            {
+                Hands.Right.Fingers[0],
+                Hands.Right.Fingers[1],
+                Hands.Right.Fingers[2],
+                Hands.Right.Fingers[3],
+                Hands.Right.Fingers[4]
+            };
             //reactToGesture();
             if (Hands.Left != null && Hands.Right != null)
             {
