@@ -36,7 +36,7 @@ public class Spline
         {
             spline[i] = new Vector3(0f, i * distance, radius + Random.Range(0, variance * 2) - variance);
         }
-
+        spline[spline.Length - 1] = new Vector3(0f, height, 0f);
         // smooth sline with variance
         if(variance > 0f)
         {
