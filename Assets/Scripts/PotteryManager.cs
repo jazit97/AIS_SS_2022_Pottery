@@ -73,30 +73,34 @@ namespace Leap.Unity
         void Update()
         {
             //reactToGesture();
-            if (Hands.Left.IsPinching())
+            if (Hands.Left != null && Hands.Right != null)
             {
+                if (Hands.Left.IsPinching())
+                {
                 
-                Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
-                Vector3 pinchPosition = Hands.Left.GetPinchPosition();
-                Debug.Log("Pinch detected ==== position = " + pinchPosition);
-                spline.PullAtPosition(pinchPosition, effectStrength, .1f, currentDeformFunction, Spline.UseAbsolutegeHeight);
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                Vector3 rightFingerTip = rightHandFingers[i].TipPosition.ToVector3();
-                Vector3 leftFingerTip = leftHandFingers[i].TipPosition.ToVector3();
-                Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
-                if (spline.DistanceToMesh(rightFingerTip) <= 0)
-                {
-                    spline.PushAtPosition(rightFingerTip,1,effectStrength,.5f,currentDeformFunction,Spline.UseAbsolutegeHeight);
+                    Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
+                    Vector3 pinchPosition = Hands.Left.GetPinchPosition();
+                    Debug.Log("Pinch detected ==== position = " + pinchPosition);
+                    spline.PullAtPosition(pinchPosition, effectStrength, .1f, currentDeformFunction, Spline.UseAbsolutegeHeight);
                 }
 
-                if (spline.DistanceToMesh(leftFingerTip) <= 0)
+                for (int i = 0; i < 4; i++)
                 {
-                    spline.PushAtPosition(leftFingerTip,1,effectStrength,.5f,currentDeformFunction,Spline.UseAbsolutegeHeight);
-                }
+                    Vector3 rightFingerTip = rightHandFingers[i].TipPosition.ToVector3();
+                    Vector3 leftFingerTip = leftHandFingers[i].TipPosition.ToVector3();
+                    Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
+                    if (spline.DistanceToMesh(rightFingerTip) <= 0)
+                    {
+                        spline.PushAtPosition(rightFingerTip,1,effectStrength,.5f,currentDeformFunction,Spline.UseAbsolutegeHeight);
+                    }
+
+                    if (spline.DistanceToMesh(leftFingerTip) <= 0)
+                    {
+                        spline.PushAtPosition(leftFingerTip,1,effectStrength,.5f,currentDeformFunction,Spline.UseAbsolutegeHeight);
+                    }
+                }    
             }
+            
             //update mesh with new spline
             List<Vector3> updatedSpline = spline.getSplineList();
             latheController.updateMesh(updatedSpline);
