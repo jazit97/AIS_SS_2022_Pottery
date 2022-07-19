@@ -12,7 +12,7 @@ public class Spline
     public const bool UsePercentageHeight = false;
     public const bool UseAbsolutegeHeight = true;
     public const float minRadius = 0.03f;
-    public const float maxRadius = 0.8f;
+    public float maxRadius = 0.3f;
 
     //public float pushthreshold;
     //public float pushFalloff;
@@ -28,7 +28,7 @@ public class Spline
     public Spline(float radius, float height, int subdivision, float variance = 0.01f)
     {
         float distance = height / subdivision;
-
+        maxRadius = radius * 1.5f;
         spline = new Vector3[subdivision + 2];
         spline[0] = new Vector3(0f, 0f, 0f);
         spline[spline.Length - 1] = new Vector3(0f, height, 0f);

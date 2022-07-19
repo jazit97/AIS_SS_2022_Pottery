@@ -103,18 +103,17 @@ namespace Leap.Unity
 
         private void pull1()
         {
-            Debug.Log("Case PULL1");
-             //Func<float, float> currentDeformFunction = delegate (float input) { return Mathf.Pow(Mathf.Cos(input), 2f); };
+            //Func<float, float> currentDeformFunction = delegate (float input) { return Mathf.Pow(Mathf.Cos(input), 2f); };
             Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
 
             Vector3 indexTipPosition = getScaledPosition(handController.CurrentFrame.Hands[0], LEAPHAND.INDEX);
             Vector3 thumbTipPosition = getScaledPosition(handController.CurrentFrame.Hands[0], LEAPHAND.THUMB);
 
-            float affectedHeight = Mathf.Abs(indexTipPosition.y - thumbTipPosition.y) * 100;
+            float affectedHeight = Mathf.Abs(indexTipPosition.y - thumbTipPosition.y);
             Vector3 center = (indexTipPosition - thumbTipPosition) / 2f;
+            center.y += thumbTipPosition.y;
             Debug.Log($"Center: {center} \n EffectStrength: {effectStrength * 2f}\n affectedHeight {affectedHeight} ");
-            spline.PullAtPosition(center,effectStrength, affectedHeight , currentDeformFunction,
-                Spline.UseAbsolutegeHeight);
+            spline.PullAtPosition(center,effectStrength, affectedHeight/2f , currentDeformFunction, Spline.UseAbsolutegeHeight);
         }
 
         private void push1()
