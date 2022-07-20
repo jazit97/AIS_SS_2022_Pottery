@@ -127,7 +127,6 @@ namespace Leap.Unity
             spline.PushAtPosition(positionOfTip, spline.DistanceToMesh(positionOfTip), effectStrength,
                 affectedArea, currentDeformFunction);
         }
-
         #region DONE
 
         private GESTURE getCurrentGesture(List<Hand> hand)

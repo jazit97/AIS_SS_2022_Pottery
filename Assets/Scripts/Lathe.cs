@@ -101,6 +101,7 @@ public class Lathe : MonoBehaviour
             List<List<Vector3>> verticesList2D = getLathedMeshVertices(spline, sections);
 
             this.mesh = mesh;
+            this.mesh.name = "cylinderMesh";
 
             vertices = list2dToSimpleList(verticesList2D);
             uv = getUVList(vertices);

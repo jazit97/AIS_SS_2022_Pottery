@@ -42,5 +42,9 @@ public class UIMenu : MonoBehaviour
     public void ButtonPress()
     {
         Debug.Log("Buttton is pressed!");
+        GameObject cylinder = GameObject.Find("ClayCylinder");
+        Mesh mesh = cylinder.GetComponent<MeshFilter>().mesh;
+        
+        Export.ExportMeshToSTL(mesh);
     }
 }
