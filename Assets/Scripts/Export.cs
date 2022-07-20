@@ -16,13 +16,13 @@ public static class Export
             filename = Guid.NewGuid().ToString();
         }
 
-        string path = Path.Combine(Application.dataPath, "Export.stl");
+        string path = Path.Combine(Application.dataPath, "Export");
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
         }
 
-        string completePath = Path.Combine(path, filename);
+        string completePath = Path.Combine(path, filename + ".stl");
 
         Debug.Log(completePath);
         Exporter.WriteFile(completePath, mesh);
