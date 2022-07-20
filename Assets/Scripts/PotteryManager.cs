@@ -139,7 +139,7 @@ namespace Leap.Unity
             }
             //Log hand position
             // Nearest Finger Detection
-            Vector3 closestFinger = getClosestFinger(hand[0] );
+            Vector3 closestFinger = getClosestFinger(hand[0]);
             Vector3 thumbPosition = getScaledPosition(hand[0], LEAPHAND.THUMB);
             Vector3 palmPosition = getScaledPosition(hand[0], LEAPHAND.PALM);
 
