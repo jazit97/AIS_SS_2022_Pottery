@@ -16,7 +16,7 @@ public static class Export
             filename = Guid.NewGuid().ToString();
         }
 
-        string path = Path.Combine(Application.dataPath, "Export");
+        string path = Path.Combine(Application.dataPath, "Export.stl");
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
