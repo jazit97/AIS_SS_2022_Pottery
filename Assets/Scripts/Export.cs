@@ -25,7 +25,7 @@ public static class Export
         string completePath = Path.Combine(path, filename + ".stl");
 
         Debug.Log(completePath);
-        Exporter.WriteFile(completePath, mesh);
+        Exporter.WriteFile(completePath, mesh, FileType.Binary);
         //pb_Stl.WriteFile(path, mesh, FileType.Ascii);
         ;
         //OR
