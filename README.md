@@ -18,7 +18,6 @@
 ## Erste Schritte
 ### Installationsanleitung
 1. Download und Installation von [Ultraleap’s Hand Tracking Software](https://developer.leapmotion.com/tracking-software-download)
-3. Projektordner in Unity öffnen
 2. PotterySimulator.exe ausführen
 
 ### Projekt in Unity zu öffnen
