@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using Leap;
 using Leap.Unity;
-using Leap.Unity.Interaction.Examples;
 using UnityEngine;
 
 
@@ -10,6 +8,7 @@ public class UIMenu : MonoBehaviour
 {
     public LeapProvider handController;
     public GameObject CanvasHolder;
+    public PotteryManager Manager;
     private float palmDeg;
 
     void Update()
@@ -30,21 +29,17 @@ public class UIMenu : MonoBehaviour
             CanvasHolder.SetActive(true);
         else
             CanvasHolder.SetActive(false);
-        return ;
     }
 
-    public void ExportB()
+    public void export()
         {
-            Debug.Log("ExportButtton is pressed!");
             GameObject cylinder = GameObject.Find("ClayCylinder");
             Mesh mesh = cylinder.GetComponent<MeshFilter>().mesh;
-            
             Export.ExportMeshToSTL(mesh);
         }
-    public void ResetB()
+    public void reset()
         {
-            Debug.Log("ResetButtton is pressed!");
-           
+            Manager.Initialise();
         }
     
     

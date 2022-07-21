@@ -1,14 +1,20 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Xml.Serialization;
 using Parabox.Stl;
 using UnityEngine;
 
+/*
+ * Provides static methods for exporting a provided mesh to different file types.
+ */
 public static class Export 
 {
 
+    /// <summary>
+    /// Exports the mesh the mesh to the exports folder. If the folder does not exist it will be generated.
+    /// If the filename is empty a GUID will be generated as the filename.
+    /// </summary>
+    /// <param name="mesh">Mesh to be exported</param>
+    /// <param name="filename">Optional filename</param>
     public static void ExportMeshToSTL(Mesh mesh, string filename = "")
     {
         if (filename == "")
@@ -26,9 +32,6 @@ public static class Export
 
         Debug.Log(completePath);
         Exporter.WriteFile(completePath, mesh, FileType.Binary);
-        //pb_Stl.WriteFile(path, mesh, FileType.Ascii);
-        ;
-        //OR
-        //pb_Stl_Exporter.Export(path, new GameObject[] { objMeshToExport }, FileType.Ascii);
+       
     }
 }

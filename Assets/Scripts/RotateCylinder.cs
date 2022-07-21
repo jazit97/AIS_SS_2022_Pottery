@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateCylinder : MonoBehaviour
@@ -9,12 +6,9 @@ public class RotateCylinder : MonoBehaviour
     
         private static float degreesPerSecond = 90f;
     
-        // Start is called before the first frame update
         void Start()
         {
             cylinder = GameObject.Find("Cylinder");
-            InputRegistry.On_AKey_Pressed += decrementSpeed;
-            InputRegistry.On_DKey_Pressed += incrementSpeed;
         }
     
         // Update is called once per frame
@@ -26,22 +20,4 @@ public class RotateCylinder : MonoBehaviour
             //cylinder.transform.RotateAround(transform.position, transform.forward, Time.deltaTime * degreesPerSecond);
             cylinder.transform.Rotate(Vector3.up * Time.deltaTime*degreesPerSecond);
     }
-
-        public static void incrementSpeed()
-        {
-            degreesPerSecond++;
-            Debug.Log("Incremented to: " + degreesPerSecond);
-        }
-
-        public static void decrementSpeed()
-        {
-            degreesPerSecond--;
-            Debug.Log("Decremented to: " + degreesPerSecond);
-        }
-
-        private void OnDestroy()
-        {
-            InputRegistry.On_AKey_Pressed -= decrementSpeed;
-            InputRegistry.On_DKey_Pressed -= incrementSpeed;
-        }
 }

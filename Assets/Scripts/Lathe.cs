@@ -33,11 +33,8 @@ public class Lathe : MonoBehaviour
 
     public void init(List<Vector3> generatedSpline)
     {
-        if (spline == null)
-        {
-            spline = generatedSpline;
-        }
-
+        
+        spline = generatedSpline;
         MeshFilter meshFilter = this.GetComponent<MeshFilter>();
         mesh = new Mesh();
         meshFilter.mesh = mesh;
@@ -59,31 +56,27 @@ public class Lathe : MonoBehaviour
     /// </summary>
     protected class LathedObject
     {
-        //////////////////////////////
-        // constants -----------------
+        #region public
 
-        // ---------------------------
-
-        // public vars ---------------
         public List<Vector3> spline;
-        // ---------------------------
 
-        // protected vars ------------
+        #endregion
+
+        #region protected
         protected GameObject gameObject;
         protected int sections;
         protected Material mat;
+        #endregion
 
-        // private vars --------------
-        // needed for mesh creating
+        #region private
         private Mesh mesh;
         private List<Vector3> skinnedSpline;
         private List<Vector3> vertices;
         private List<Vector2> uv;
         private int[] triangles;
         private float thickness;
-        // ---------------------------
-        //////////////////////////////
-
+        #endregion
+        
         /// <summary>
         /// Main constructor.
         /// </summary>

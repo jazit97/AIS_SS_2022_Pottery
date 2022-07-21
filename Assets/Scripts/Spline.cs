@@ -1,11 +1,10 @@
 using UnityEngine;
-using System.Collections;
 using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 /// <summary> 
-/// the spline class represents a Vector Array of Points that the spline is made out of
+/// The spline class represents a Vector Array of Points that the spline is made out of
 /// </summary>
 public class Spline
 {
@@ -13,12 +12,9 @@ public class Spline
     public const bool UseAbsolutegeHeight = true;
     public const float minRadius = 0.03f;
     public float maxRadius = 0.3f;
-
-    //public float pushthreshold;
-    //public float pushFalloff;
-
     private Vector3[] spline;
 
+    
     ///<summary> constructs a vertical spline with a slight variance </summary>
     ///
     ///<param name="radius">distance to the center</param>

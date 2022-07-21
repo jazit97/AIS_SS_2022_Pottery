@@ -1,11 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Ultraleap;
-using Leap;
-using Leap.Unity;
-using Leap.Unity.Interaction.Examples;
 
 namespace Leap.Unity
 {
@@ -13,13 +8,13 @@ namespace Leap.Unity
     {
         #region Attributes
 
-        public int ClayResolution;
+        public int ClayResolution; // number of vertices per unit
         public float ClayHeight, ClayRadius, ClayVariance;
-        public float effectStrength, affectedArea;
+        public float effectStrength, affectedArea; 
         public Lathe latheController;
-        private Spline spline;
+        private Spline spline; 
         public Controller leapController;
-        public Vector3 positionOfTip;
+        public Vector3 positionOfTip; // position of fingertip
         public LeapServiceProvider handController;
 
         #endregion
@@ -51,93 +46,69 @@ namespace Leap.Unity
 
         void Start()
         {
-            //leapController = handController.GetLeapController();
+            spline = new Spline(ClayRadius, ClayHeight, ClayResolution, ClayVariance);
+                        latheController.init(spline.getSplineList());
+                        latheController.updateMesh(spline.getSplineList());
+        }
+        void Update()
+        {
+            reactToGesture();
+            
+            List<Vector3> updatedSpline = spline.getSplineList();
+            latheController.updateMesh(updatedSpline);
+        }
+        public  void Initialise()
+        {
             spline = new Spline(ClayRadius, ClayHeight, ClayResolution, ClayVariance);
             latheController.init(spline.getSplineList());
             latheController.updateMesh(spline.getSplineList());
         }
+        #endregion
 
-        void Update()
+        #region Gesture Recognition
+        /// <summary>
+        /// Recognizes the current gesture and chooses the corresponding deform function. Does nothing if no gesture is
+        /// recognized.
+        /// </summary>
+        private void reactToGesture()
         {
-            reactToGesture();
-            /*
-             * if (Hands.Left.IsPinching())
+            // get current gesture
+            var currentGesture = getCurrentGesture(handController.CurrentFrame.Hands);
+            Debug.Log(currentGesture);
+            switch (currentGesture)
             {
-                Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
-                Vector3 pinchPosition = Hands.Left.GetPinchPosition();
-                Debug.Log("Pinch detected ==== position = " + pinchPosition);
-                spline.PullAtPosition(pinchPosition, effectStrength, affectedArea, currentDeformFunction, Spline.UseAbsolutegeHeight);
+                case GESTURE.PUSH1: // push with one finger
+                    push1();
+                    break;
+                case GESTURE.PULL1: //pull with open hand - use height 
+                    pull1();
+                    break;
+                case GESTURE.SMOOTH1: 
+                    smooth1();
+                    break;
+                case GESTURE.NONE:
+                    break;
+                default: // Wenn keine Geste erkannt wurde
+                    Debug.Log("no gesture defined for " + currentGesture);
+                    break;
             }
-            
-             */
-
-            //update mesh with new spline
-            List<Vector3> updatedSpline = spline.getSplineList();
-            latheController.updateMesh(updatedSpline);
         }
 
-        #endregion
-
-        #region Interaction_Funcs
-
-        /*
-         * Checks for the current gesture and calls the corresponding deform function
-         */
-        
-        #endregion
-
-        private void smooth1()
-        {
-            Debug.Log("Case smooth");
-            Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 1f; };
-            // spline.SmoothAtPosition(tipPosition, effectStrength, affectedArea*0.5f, currentDeformFunction);
-            spline.SmoothArea(positionOfTip, 0.2f, affectedArea * 0.3f, 8f, currentDeformFunction);
-        }
-
-        private void pull2()
-        {
-            // Func<float, float> currentDeformFunction = delegate (float input) { return Mathf.Pow(Mathf.Cos(input), 2f); };
-            Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
-            spline.PullAtPosition(positionOfTip, effectStrength * 2f, affectedArea, currentDeformFunction);
-        }
-
-        private void pull1()
-        {
-            //Func<float, float> currentDeformFunction = delegate (float input) { return Mathf.Pow(Mathf.Cos(input), 2f); };
-            Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
-
-            Vector3 indexTipPosition = getScaledPosition(handController.CurrentFrame.Hands[0], LEAPHAND.INDEX);
-            Vector3 thumbTipPosition = getScaledPosition(handController.CurrentFrame.Hands[0], LEAPHAND.THUMB);
-
-            float affectedHeight = Mathf.Abs(indexTipPosition.y - thumbTipPosition.y);
-            Vector3 center = (indexTipPosition - thumbTipPosition) / 2f;
-            center.y += thumbTipPosition.y;
-            Debug.Log($"Center: {center} \n EffectStrength: {effectStrength * 2f}\n affectedHeight {affectedHeight} ");
-            spline.PullAtPosition(center,effectStrength, affectedHeight/2f , currentDeformFunction, Spline.UseAbsolutegeHeight);
-        }
-
-        private void push1()
-        {
-            Func<float, float> currentDeformFunction = delegate(float input)
-            {
-                return Mathf.Pow(Mathf.Cos(input), 2f);
-            };
-            // Func<float, float> currentDeformFunction = delegate (float input) { return Mathf.Cos(input) * 0.1f; };
-            // v-- uses the percentage number of the vertices
-            spline.PushAtPosition(positionOfTip, spline.DistanceToMesh(positionOfTip), effectStrength,
-                affectedArea, currentDeformFunction);
-        }
-        #region DONE
-
+        /// <summary>
+        /// Scans the given Hand for a recognizable gesture. 
+        /// </summary>
+        /// <param name="hand">List of visible hands. First element in the list will be scanned for gesture</param>
+        /// <returns></returns>
         private GESTURE getCurrentGesture(List<Hand> hand)
         {
+            // if no hands are visible ==> do nothing
             if (hand.Count == 0)
             {
                 Debug.Log("No hands visible");
                 return GESTURE.NONE;
             }
-            //Log hand position
-            // Nearest Finger Detection
+           
+            // Closest finger to mesh
             Vector3 closestFinger = getClosestFinger(hand[0]);
             Vector3 thumbPosition = getScaledPosition(hand[0], LEAPHAND.THUMB);
             Vector3 palmPosition = getScaledPosition(hand[0], LEAPHAND.PALM);
@@ -158,6 +129,7 @@ namespace Leap.Unity
 
             bool thumbIsTouchingMesh = (spline.DistanceToMesh(thumbPosition) <= 0f);
             bool closestFingerIsTouchingMesh = spline.DistanceToMesh(getClosestFinger(hand[0], true)) <= 0f;
+            
             if ( angleInRangePlusMinus72 && palmCloseToMesh)
             {
                 positionOfTip = palmPosition;
@@ -182,11 +154,17 @@ namespace Leap.Unity
 
             return recognizedGesture;
         }
+        
+        /// <summary>
+        /// Scales the given hand with the position and scale of the leap handcontroller gameobject.
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <param name="type">Hand part</param>
+        /// <returns></returns>
         private Vector3 getScaledPosition(Hand hand, LEAPHAND type)
         {
             Vector3 retVal;
-            // 3 steps:
-            // 1 get Leap-Coords
+            //get Leap-Coords
             switch (type)
             {
                 case LEAPHAND.INDEX:
@@ -212,28 +190,34 @@ namespace Leap.Unity
                     break;
             }
 
-            // 2 scale with handControler
+            //scale with handControler
             retVal *= handController.transform.localScale.x;
 
-            
+            //absolute value 
             if (retVal.x < 0)
                 retVal.x = retVal.x * -1;
             if (retVal.y < 0)
                 retVal.y = retVal.y * -1;
             if (retVal.z < 0)
                 retVal.z = retVal.z * -1;
-            //own
-            // 3 offset with handcontroller
+            
+            //offset with handcontroller
             retVal += handController.transform.position;
 
             return retVal;
         }
-
+        
+        /// <summary>
+        /// Get the closest finger to the mesh.
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <param name="ignoreThumb">If the thumb should be counted as closest finger</param>
+        /// <returns>Finger closest to the mesh</returns>
         private Vector3 getClosestFinger(Hand hand, bool ignoreThumb = false)
         {
-            int index = 0;
             Vector3 closestFinger = Vector3.zero;
 
+            //iterate over all fingers
             for (int i = 0; i < hand.Fingers.Count; i++)
             {
                 //scale finger
@@ -255,47 +239,60 @@ namespace Leap.Unity
                         continue; // next Finger
                 }
 
-                if (closestFinger == Vector3.zero)
+                if (closestFinger == Vector3.zero) // first iteration? -> closest finger to mesh is whatever finger is currently selected
                 {
-                    index = i;
                     closestFinger = tmp;
                 }
                 else if (spline.DistanceToMesh(closestFinger) > spline.DistanceToMesh(tmp))
                 {
-                    index = i;
                     closestFinger = tmp;
                 }
             }
-            Debug.Log(hand.Fingers[index].Type);
             return closestFinger;
         }
-        private void reactToGesture()
+
+        #endregion
+
+        #region Deform Functions
+        
+        private void smooth1()
         {
-            // get current gesture
-            var currentGesture = getCurrentGesture(handController.CurrentFrame.Hands);
-            Debug.Log(currentGesture);
-            switch (currentGesture)
-            {
-                case GESTURE.PUSH1: // push with one finger
-                    push1();
-                    break;
-                case GESTURE.PULL1: //pull with open hand - use height 
-                    pull1();
-                    break;
-                case GESTURE.PULL2: // pull with pinch
-                    pull2();
-                    break;
-                case GESTURE.SMOOTH1: 
-                    smooth1();
-                    break;
-                case GESTURE.NONE:
-                    break;
-                default: // Wenn keine Geste erkannt wurde
-                    Debug.Log("no gesture defined for " + currentGesture);
-                    break;
-            }
+            Debug.Log("Case smooth");
+            Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 1f; };
+            spline.SmoothArea(positionOfTip, 0.2f, affectedArea * 0.3f, 8f, currentDeformFunction);
         }
 
+        /// <summary>
+        /// Pull the area between thumb and index finger out.
+        /// </summary>
+        private void pull1()
+        {
+            Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 0.5f; };
+
+            Vector3 indexTipPosition = getScaledPosition(handController.CurrentFrame.Hands[0], LEAPHAND.INDEX);
+            Vector3 thumbTipPosition = getScaledPosition(handController.CurrentFrame.Hands[0], LEAPHAND.THUMB);
+
+            float affectedHeight = Mathf.Abs(indexTipPosition.y - thumbTipPosition.y);
+            Vector3 center = (indexTipPosition - thumbTipPosition) / 2f; // center between thumb and index
+            center.y += thumbTipPosition.y; // adjust center to actual height
+            
+            spline.PullAtPosition(center,effectStrength, affectedHeight/2f , currentDeformFunction, Spline.UseAbsolutegeHeight);
+        }
+
+        /// <summary>
+        /// Push mesh in with closest finger.
+        /// </summary>
+        private void push1()
+        {
+            Func<float, float> currentDeformFunction = delegate(float input)
+            {
+                return Mathf.Pow(Mathf.Cos(input), 2f);
+            };
+            spline.PushAtPosition(positionOfTip, spline.DistanceToMesh(positionOfTip), effectStrength,
+                affectedArea, currentDeformFunction);
+        }
+
+        
         #endregion
     } // End class
 } // End Namespace
