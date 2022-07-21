@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Leap;
 using Leap.Unity;
 using UnityEngine;
+using UnityEngine.Playables;
 
 
 public class UIMenu : MonoBehaviour
@@ -10,6 +12,7 @@ public class UIMenu : MonoBehaviour
     public GameObject CanvasHolder;
     public PotteryManager Manager;
     private float palmDeg;
+    public GameObject NotificationCanvas;
 
     void Update()
     {
@@ -23,7 +26,6 @@ public class UIMenu : MonoBehaviour
             var currentLeftHand = hand[0];
             float palmRad = currentLeftHand.PalmNormal.Roll;
             palmDeg = (180 / Mathf.PI) * palmRad;
-            //Debug.Log("PalmNormal Radius:" + palmDeg); 
         }
         if (palmDeg > 120)
             CanvasHolder.SetActive(true);
@@ -36,11 +38,18 @@ public class UIMenu : MonoBehaviour
             GameObject cylinder = GameObject.Find("ClayCylinder");
             Mesh mesh = cylinder.GetComponent<MeshFilter>().mesh;
             Export.ExportMeshToSTL(mesh);
+            StartCoroutine(FadeCo());
         }
     public void reset()
         {
             Manager.Initialise();
         }
     
+    public IEnumerator FadeCo()
+    {
+        NotificationCanvas.SetActive(true);
+        yield return new WaitForSeconds(1);
+        NotificationCanvas.SetActive(false);
+    }
     
 }

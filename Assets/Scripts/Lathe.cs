@@ -187,7 +187,6 @@ public class Lathe : MonoBehaviour
                 if(verticesList2D[i][0].x == 0)
                 {
                     Vector3 v = verticesList2D[i][0];
-                    Debug.Log("Vertex with index " + i + " has (" + v.x + ", " + v.y + ", " + v.z + ")");
                 }
 
                 int vIndex = i * sections; // index of the "spline" vertex

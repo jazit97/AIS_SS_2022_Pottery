@@ -74,7 +74,6 @@ namespace Leap.Unity
         {
             // get current gesture
             var currentGesture = getCurrentGesture(handController.CurrentFrame.Hands);
-            Debug.Log(currentGesture);
             switch (currentGesture)
             {
                 case GESTURE.PUSH1: // push with one finger
@@ -88,9 +87,7 @@ namespace Leap.Unity
                     break;
                 case GESTURE.NONE:
                     break;
-                default: // Wenn keine Geste erkannt wurde
-                    Debug.Log("no gesture defined for " + currentGesture);
-                    break;
+                
             }
         }
 
@@ -104,7 +101,6 @@ namespace Leap.Unity
             // if no hands are visible ==> do nothing
             if (hand.Count == 0)
             {
-                Debug.Log("No hands visible");
                 return GESTURE.NONE;
             }
            
@@ -257,7 +253,6 @@ namespace Leap.Unity
         
         private void smooth1()
         {
-            Debug.Log("Case smooth");
             Func<float, float> currentDeformFunction = delegate(float input) { return Mathf.Cos(input) * 1f; };
             spline.SmoothArea(positionOfTip, 0.2f, affectedArea * 0.3f, 8f, currentDeformFunction);
         }

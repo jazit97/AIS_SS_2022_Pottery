@@ -323,13 +323,11 @@ public class Spline
         if (absoluteHeight) {
             startVertex = getCorrespondingVertex(position.y - affectedArea / 2f);
             endVertex = getCorrespondingVertex(position.y + affectedArea / 2f);
-            Debug.Log($"Position: {position.y} Affected Area/2 : {affectedArea/2f}");
-            Debug.Log($"Startvertex: {startVertex}/ EndVertex: {endVertex}");
             affectedVertices = endVertex - startVertex;
         }
         else { 
             affectedVertices = (int)Mathf.Floor(spline.Length * affectedArea);
-            Debug.Log("Affected Vertices: " + affectedVertices);
+            
             if (affectedVertices % 2 == 0)
                 affectedVertices += 1;
             startVertex = getCorrespondingVertex(position.y) - ((int)affectedVertices - 1) / 2;
@@ -338,7 +336,6 @@ public class Spline
 
         float[] deformFactors = new float[(int)affectedVertices];
         int tmp = (int)Mathf.Floor(affectedVertices / 2);
-        Debug.Log("Temp = " + tmp);
         for (int i = 0; i < (int)Mathf.Floor(affectedVertices / 2); i++)
         {
             //start at center
@@ -363,21 +360,17 @@ public class Spline
 
             
             if (spline[i].z > minRadius * 1.5f && spline[i].z < maxRadius * 0.9f  ) {
-                //Debug.Log("deform abs");
 
                 spline[i].z += sign*strengthOfDeformation * deformFactors[i - startVertex];
             }
             else
             {
-                //Debug.Log("deform percentage");
-
                 spline[i].z += sign*spline[i].z * strengthOfDeformation * deformFactors[i - startVertex] * 3f;
             }
             spline[i].z = Mathf.Min(spline[i].z, maxRadius);
             spline[i].z = Mathf.Max(spline[i].z, minRadius);
             
         }
-        Debug.Log("Summary: " + deformSummary);
     }
 
     /// <summary>
