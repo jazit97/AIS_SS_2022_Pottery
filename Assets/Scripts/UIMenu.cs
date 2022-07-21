@@ -5,19 +5,13 @@ using Leap.Unity;
 using Leap.Unity.Interaction.Examples;
 using UnityEngine;
 
+
 public class UIMenu : MonoBehaviour
 {
     public LeapProvider handController;
     public GameObject CanvasHolder;
     private float palmDeg;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         PalmRadius(handController.CurrentFrame.Hands);
@@ -39,12 +33,19 @@ public class UIMenu : MonoBehaviour
         return ;
     }
 
-    public void ButtonPress()
-    {
-        Debug.Log("Buttton is pressed!");
-        GameObject cylinder = GameObject.Find("ClayCylinder");
-        Mesh mesh = cylinder.GetComponent<MeshFilter>().mesh;
-        
-        Export.ExportMeshToSTL(mesh);
-    }
+    public void ExportB()
+        {
+            Debug.Log("ExportButtton is pressed!");
+            GameObject cylinder = GameObject.Find("ClayCylinder");
+            Mesh mesh = cylinder.GetComponent<MeshFilter>().mesh;
+            
+            Export.ExportMeshToSTL(mesh);
+        }
+    public void ResetB()
+        {
+            Debug.Log("ResetButtton is pressed!");
+           
+        }
+    
+    
 }
