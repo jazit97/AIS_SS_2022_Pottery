@@ -1,7 +1,7 @@
 # Pottery Simulator
 
 ## Über das Projekt
-- Anwendung, die mit Hilfe einer Tiefenkamera Gesten erkennt und diese auf einen Tonzylinder abbildet.
+- Anwendung, die mit Hilfe der Leap Motion Tiefenkamera Gesten erkennt und diese auf einen Tonzylinder abbildet.
 - Dieser verändert daraufhin die Gestalt.
 - Wie das echte Verformen von Ton kann der digitale Tonblock eingedrückt, herausgezogen und geglättet werden.
 - Die Gestenerkennung wird durch die Ultraleap und bereitgestellte Software realisiert.
@@ -10,20 +10,17 @@
 - Der Simulator verfügt über ein Menü, über dieses das Tonabbild exportiert oder zurückgesetzt werden kann. 
 - Dieses Menü wird aufgerufen, indem man die linke Hand auf Brusthöhe anhebt und die Handfläche nach oben zeigen lässt. Mit der rechten Hand können dann die Menüpunkte gedrückt werden.
 ### Gesten
-- Glätten: Die Handfläche flach und leicht gekrümmt an den Ton drücken
+- Glätten: Die Handfläche flach und leicht gekrümmt an den Ton drücken.
 - Eindrücken: Der nächstgelegene Finger zum Tonblock wird als operierenden Finger erkannt. Dieser drückt bei Berührung den Ton nach innen.
 - Herausziehen: Der Daumen und der Zeigefinger formen ein „V“. Dieses V wird an den Ton geführt und zwischen Daumen und Zeigefinger wird der Ton herausgezogen.
 
 
 ## Erste Schritte
 ### Installationsanleitung
-1. Download und Installation von [Ultraleap’s Hand Tracking Software](https://developer.leapmotion.com/tracking-software-download)
-2. PotterySimulator.exe ausführen
-
-### Projekt in Unity zu öffnen
 1. Download und Installation von [Unity 2020.3.33f1](https://unity3d.com/get-unity/download/archive)
 2. Download und Installation von [Ultraleap’s Hand Tracking Software](https://developer.leapmotion.com/tracking-software-download)
 3. Projektordner in Unity öffnen
+4. Projekt builden und ausführen
 
 ### Hard- und Software
 #### **Leap Motion**
