@@ -22,6 +22,8 @@
 3. Projektordner in Unity öffnen
 4. Projekt builden und ausführen
 
+Hinweis: Der Export-Ordner für die .STL-Datei befindet sich  beim Unity-Projekt in AIS_SS_2022_Pottery\Assets, nach dem Build in AIS_SS_2022_Pottery\Build\AIS_SS_2022_Pottery_Data
+
 ### Hard- und Software
 #### **Leap Motion**
 Der Leap Motion Controller wird vor dem Benutzer auf dem Schreibtisch aufgebaut und im Desktop-Modus benutzt.
