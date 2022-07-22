@@ -30,6 +30,7 @@ Der Leap Motion Controller wird vor dem Benutzer auf dem Schreibtisch aufgebaut 
 ## Anerkennungen/ Quellen
 - Git Repo [Pottery Oculus VR/Leap Motion Application](https://github.com/Virality/Pottery)
 - Paper [Hand Grasp and Motion for Intent Expression in Mid-Air Virtual Pottery](https://dl.acm.org/doi/10.5555/2788890.2788900)
+- [STL Importer](https://github.com/karl-/pb_Stl)
 #### Sketchfab Assets
 - "Easel | Мольберт | Easel with painting" (https://skfb.ly/o8XMw) by Every 3D is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - "Simple Wall Shelf" (https://skfb.ly/6COuP) by Blender3D is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
